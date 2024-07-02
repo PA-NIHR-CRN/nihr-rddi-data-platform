@@ -59,6 +59,6 @@ jobs:
         run: |
           echo "Using registry ${{ env.ECR_REGISTRY }}"
           echo "Tagging image with ${{ env.IMAGE_SHA_TAG }}"
-          docker build -f src/nihrd-ebr-rddi-s3-dev-raw/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG
+          docker build -f src/nihrd-ebr-rddi-s3-dev-raw/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG ./src
           docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG" >> "$GITHUB_OUTPUT"
