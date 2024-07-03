@@ -1,5 +1,5 @@
 # Build stage
-FROM public.ecr.aws/lambda/python:3.11 as builder
+FROM public.ecr.aws/lambda/python:3.12 as builder
 
 # Set working directory
 WORKDIR ${LAMBDA_TASK_ROOT}
@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Runtime stage
-FROM public.ecr.aws/lambda/python:3.11-slim
+FROM public.ecr.aws/lambda/python:3.12
 
 # Set working directory
 WORKDIR ${LAMBDA_TASK_ROOT}
