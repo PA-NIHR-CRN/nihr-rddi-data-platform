@@ -53,13 +53,12 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
-          ECR_REPOSITORY: nihrd-dev-rddi-data-platform-ecr-repository
+          ECR_REPOSITORY: nihrd-ecr-dev-rddi-data-platform
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_SHA_TAG: nihrd-rddi-data-platform-${{ github.sha }}
         run: |
           echo "Using registry ${{ env.ECR_REGISTRY }}"
           echo "Tagging image with ${{ env.IMAGE_SHA_TAG }}"
-          # TODO
-          # docker build -f NIHR.StudyManagement/NIHR.StudyManagement.OutboxProcessor/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG ./NIHR.StudyManagement
-          # docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY
-          # echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG" >> "$GITHUB_OUTPUT"
+          docker build -f src/nihrd-ebr-rddi-s3-dev-raw/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG src/nihrd-ebr-rddi-s3-dev-raw
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_SHA_TAG" >> "$GITHUB_OUTPUT"
