@@ -6,7 +6,6 @@ def lambda_handler(event,ctx):
     glue = boto3.client('glue')
     log = logging.getLogger()
     log.setLevel(logging.INFO)
-    # TODO implement
     try:
         bucketName = event["detail"]["bucket"]["name"]
         keyName = event["detail"]["object"]["key"]
