@@ -11,7 +11,7 @@ def lambda_handler(event,ctx):
         keyName = event["detail"]["object"]["key"]
         inputPath = f"s3://{bucketName}/{keyName}"
         if os.environ.get('TARGET_BUCKET') is not None:
-            outputPath = f"s3://{os.environ.get('TARGET_BUCKET')}/{keyName}"
+            outputPath = f"s3://{os.environ.get('TARGET_BUCKET')}/{keyName}/"
         else:
             raise Exception("Target bucket not set")
         
