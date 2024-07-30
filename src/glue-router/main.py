@@ -28,6 +28,7 @@ def lambda_handler(event,ctx):
         job_parameters = {
             '--input_path': inputPath,
             '--output_path': outputPath,
+            '--table_name': normalize_table_name(keyName)
         }
         
         response = glue.start_job_run(JobName=jobName,Arguments=job_parameters)
@@ -41,3 +42,17 @@ def lambda_handler(event,ctx):
             'statusCode':500,
             'body': e
         }
+
+def normalize_table_name(path: str) -> str:
+    base_name = os.path.basename(path)
+    name_without_extension = os.path.splitext(base_name)[0]
+
+    dir_names = []
+    current_path = os.path.dirname(path)
+    while current_path != '/':
+        dir_names.append(os.path.basename(current_path))
+        current_path = os.path.dirname(current_path)
+
+    dir_names.reverse()
+    normalized_table_name = "_".join(dir_names + [name_without_extension])
+    return normalized_table_name
