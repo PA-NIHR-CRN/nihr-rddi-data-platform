@@ -9,4 +9,4 @@ python-dateutil==2.9.0.post0
 pytz==2024.1
 s3transfer==0.10.1
 tzdata==2024.1
-urllib3==1.26.19
+urllib3==2.5.0
